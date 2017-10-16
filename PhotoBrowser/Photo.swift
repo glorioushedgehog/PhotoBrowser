@@ -9,6 +9,7 @@
 // needed UIKit because need UIImage
 import UIKit
 
+// store title along with url
 struct Photo {
     let title: String
     let imageURL: URL?
@@ -17,6 +18,7 @@ struct Photo {
         self.imageURL = imageURL
     }
     
+    // build url out of the dictionary from the json file
     init(dictionary: [String: Any]) {
         let title = dictionary["title"] as? String
         let farm = dictionary["farm"] as! Int

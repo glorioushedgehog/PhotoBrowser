@@ -16,6 +16,7 @@
 
 import UIKit
 
+// main view controller that just displays the collection view of photos
 class ViewController: UIViewController {
     
     var photos: [Photo] = []
@@ -27,9 +28,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.downloadProgressBar.progress = 0.0
+        // give ImageService a reference to self
+        // so that it can update the downloadProgressBar
         ImageService.shared.mainViewController = self
         photoCollectionView.dataSource = self
-        //photoCollectionView.delegate = self
         fetchData()
     }
     
@@ -37,6 +39,8 @@ class ViewController: UIViewController {
         let url = URL(string: "https://api.flickr.com/services/rest/?format=json&sort=random&method=flickr.photos.search&tags=daffodil&tag_mode=all&api_key=0e2b6aaf8a6901c264acb91f151a3350&nojsoncallback=1")!
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { (data, response, err) in
+            // unwrap the json data to the necessary level of
+            // specificity
             let data = data!
             let json = try! JSONSerialization.jsonObject(with: data, options: [])
             let theDict = json as! [String: Any]
@@ -50,6 +54,8 @@ class ViewController: UIViewController {
         task.resume()
     }
     
+    // provide the correct photo to the detailViewController after the
+    // user presses a photo in the collection view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailSegue" {
             let detailViewController = segue.destination as! DetailViewController
@@ -58,6 +64,8 @@ class ViewController: UIViewController {
         }
     }
     
+    // called by ImageService when it has downloaded or tried to download
+    // a new image
     func updateDownloadProgress(progress: CGFloat) {
         self.downloadProgressBar.progress = Float(progress)
         if progress == 1 {
@@ -66,6 +74,7 @@ class ViewController: UIViewController {
     }
 }
 
+// provide the photos array to the collection view
 extension ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count

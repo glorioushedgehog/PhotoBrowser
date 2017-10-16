@@ -8,6 +8,7 @@
 
 import UIKit
 
+// a cell in the collection view
 class PhotoCell: UICollectionViewCell {
     
     var photo: Photo?
@@ -16,11 +17,13 @@ class PhotoCell: UICollectionViewCell {
     
     @IBOutlet weak var photoView: UIImageView!
     
+    // remove the photo if the user scrolls past the cell
     override func prepareForReuse() {
         super.prepareForReuse()
         photoView.image = nil
     }
     
+    // retrieve the photo from ImageService
     func configure(photo: Photo) {
         self.photo = photo
         titleLabel.text = photo.title

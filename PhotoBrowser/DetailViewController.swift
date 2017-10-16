@@ -8,6 +8,8 @@
 
 import UIKit
 
+// a detail view the user sees after pressing
+// an image in the collection view
 class DetailViewController: UIViewController {
     
     var photo: Photo?
@@ -18,10 +20,9 @@ class DetailViewController: UIViewController {
     
     @IBAction func closeButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-        //self.photo = nil
-        //self.performSegue(withIdentifier: "DetailSegueUnwind", sender: self)
     }
     
+    // load the image from ImageService
     override func viewDidLoad() {
         super.viewDidLoad()
         titleView.text = self.photo?.title
