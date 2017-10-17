@@ -79,16 +79,6 @@
                             <constraint firstItem="bR7-A5-yAU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kF7-VA-Jq3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="dtm-z1-3Pz"/>
-                            </mask>
-                        </variation>
-                        <variation key="widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="dtm-z1-3Pz"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="photoCollectionView" destination="bR7-A5-yAU" id="paf-cU-Nb0"/>
