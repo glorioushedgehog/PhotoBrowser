@@ -23,8 +23,11 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
-    // shows a bigger view of the image the user taps
+    // shows a bigger view of the image the user taps (only on ipad)
     @IBOutlet weak var detailPhotoView: UIImageView!
+    
+    // shows the title of the photo in the detailPhotoView (only on ipad)
+    @IBOutlet weak var detailPhotoTitle: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +84,7 @@ extension ViewController: UICollectionViewDelegate {
         // if on ipad, just change photo and title in detailPhotoView
         if traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.regular && traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular {
             let photo = photos[indexPath.item]
-            
+            detailPhotoTitle.text = photo.title
             // get the photo from image service
             ImageService.shared.imageForURL(url: photo.imageURL) { (image, url) in
                 if url == photo.imageURL {
