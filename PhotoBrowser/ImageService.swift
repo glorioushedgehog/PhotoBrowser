@@ -32,6 +32,8 @@ class ImageService {
         self.mainViewController.updateDownloadProgress(progress: progress)
         
         guard let url = url else { completion(nil, nil); return }
+        
+        // check if the response to the url is already cached and return it if it is
         if let aCachedResponse = imageCache.cachedResponse(for: URLRequest(url: url)) {
             let image = UIImage(data: aCachedResponse.data)
             completion(image, url)
@@ -45,6 +47,7 @@ class ImageService {
             // cache the data whether or not it contains an image
             let cacheResponse = CachedURLResponse(response: response!, data: data!)
             self.imageCache.storeCachedResponse(cacheResponse, for: URLRequest(url: url))
+            
             DispatchQueue.main.async {
                 completion(image, url)
             }

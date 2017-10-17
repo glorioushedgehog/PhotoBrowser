@@ -17,7 +17,7 @@ class PhotoCell: UICollectionViewCell {
     
     @IBOutlet weak var photoView: UIImageView!
     
-    // remove the photo if the user scrolls past the cell
+    // get ready to load image into cell
     override func prepareForReuse() {
         super.prepareForReuse()
         photoView.image = nil
