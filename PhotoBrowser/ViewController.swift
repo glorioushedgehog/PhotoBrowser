@@ -23,12 +23,17 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
+    // shows a bigger view of the image the user taps
+    @IBOutlet weak var detailPhotoView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         photoCollectionView.dataSource = self
+        photoCollectionView.delegate = self
         fetchData()
     }
     
+    // get json file and parse it into dictionaries that describe individual photos
     func fetchData() {
         let url = URL(string: "https://api.flickr.com/services/rest/?format=json&sort=random&method=flickr.photos.search&tags=daffodil&tag_mode=all&api_key=0e2b6aaf8a6901c264acb91f151a3350&nojsoncallback=1")!
         let session = URLSession(configuration: .default)
@@ -52,8 +57,8 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailSegue" {
             let detailViewController = segue.destination as! DetailViewController
-            let photoCell = sender as! PhotoCell
-            detailViewController.photo = photoCell.photo
+            let photo = sender as! Photo
+            detailViewController.photo = photo
         }
     }
 }
@@ -67,5 +72,25 @@ extension ViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as! PhotoCell
         cell.configure(photo: photos[indexPath.item])
         return cell
+    }
+}
+
+// handle the user tapping an image
+extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // if on ipad, just change photo and title in detailPhotoView
+        if traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.regular && traitCollection.verticalSizeClass == UIUserInterfaceSizeClass.regular {
+            let photo = photos[indexPath.item]
+            
+            // get the photo from image service
+            ImageService.shared.imageForURL(url: photo.imageURL) { (image, url) in
+                if url == photo.imageURL {
+                    self.detailPhotoView.image = image
+                }
+            }
+        }else{
+            // if not on ipad, segue to DetailViewController with the selected photo
+            performSegue(withIdentifier: "DetailSegue", sender: photos[indexPath.item])
+        }
     }
 }
