@@ -44,18 +44,24 @@
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="1" height="1"/>
                                                 </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="xmW-m2-uuk">
+                                                    <rect key="frame" x="77" y="78" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="xmW-m2-uuk" firstAttribute="centerY" secondItem="Isg-ET-37m" secondAttribute="centerY" id="GBm-7W-37R"/>
                                             <constraint firstItem="mnv-qv-IhL" firstAttribute="leading" secondItem="Isg-ET-37m" secondAttribute="leading" id="H6o-1J-vZD"/>
                                             <constraint firstAttribute="trailing" secondItem="NJe-bO-vUe" secondAttribute="trailing" constant="16" id="HZZ-ij-ltz"/>
                                             <constraint firstItem="mnv-qv-IhL" firstAttribute="top" secondItem="Isg-ET-37m" secondAttribute="top" id="WPz-Mc-gPr"/>
                                             <constraint firstAttribute="trailing" secondItem="mnv-qv-IhL" secondAttribute="trailing" id="a4c-GJ-Kbt"/>
+                                            <constraint firstItem="xmW-m2-uuk" firstAttribute="centerX" secondItem="Isg-ET-37m" secondAttribute="centerX" id="gOl-rJ-QBh"/>
                                             <constraint firstItem="NJe-bO-vUe" firstAttribute="leading" secondItem="Isg-ET-37m" secondAttribute="leading" constant="16" id="uG9-8F-IEg"/>
                                             <constraint firstItem="mnv-qv-IhL" firstAttribute="height" secondItem="Isg-ET-37m" secondAttribute="height" id="uQp-ax-c6L"/>
                                             <constraint firstAttribute="bottom" secondItem="NJe-bO-vUe" secondAttribute="bottom" constant="16" id="zCj-yp-eAN"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="loadingIndicator" destination="xmW-m2-uuk" id="S3i-yX-MlN"/>
                                             <outlet property="photoView" destination="mnv-qv-IhL" id="UMM-S0-dLe"/>
                                             <outlet property="titleLabel" destination="NJe-bO-vUe" id="SBT-Bp-KjS"/>
                                             <segue destination="uwG-bP-oTQ" kind="presentation" identifier="DetailSegue" modalTransitionStyle="flipHorizontal" id="tKS-sO-XpN"/>
@@ -63,21 +69,14 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oWf-n6-cpj">
-                                <rect key="frame" x="16" y="750" width="475" height="2"/>
-                            </progressView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="oWf-n6-cpj" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="8J7-X3-5yP"/>
                             <constraint firstItem="bR7-A5-yAU" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="MHh-At-zEj"/>
                             <constraint firstItem="bR7-A5-yAU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="MyF-J3-CRI"/>
                             <constraint firstItem="bR7-A5-yAU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZTG-9O-jtb"/>
                             <constraint firstItem="bR7-A5-yAU" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="dtm-z1-3Pz"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oWf-n6-cpj" secondAttribute="bottom" constant="16" id="i1n-9j-Khj"/>
                             <constraint firstItem="bR7-A5-yAU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kF7-VA-Jq3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oWf-n6-cpj" secondAttribute="trailing" constant="16" id="ozW-4C-LA3"/>
-                            <constraint firstItem="oWf-n6-cpj" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="xLW-oF-y6b"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <variation key="default">
@@ -92,7 +91,6 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="downloadProgressBar" destination="oWf-n6-cpj" id="tUf-zI-6L7"/>
                         <outlet property="photoCollectionView" destination="bR7-A5-yAU" id="paf-cU-Nb0"/>
                     </connections>
                 </viewController>

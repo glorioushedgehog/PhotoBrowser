@@ -23,14 +23,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var photoCollectionView: UICollectionView!
     
-    @IBOutlet weak var downloadProgressBar: UIProgressView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.downloadProgressBar.progress = 0.0
-        // give ImageService a reference to self
-        // so that it can update the downloadProgressBar
-        ImageService.shared.mainViewController = self
         photoCollectionView.dataSource = self
         fetchData()
     }
@@ -39,8 +33,7 @@ class ViewController: UIViewController {
         let url = URL(string: "https://api.flickr.com/services/rest/?format=json&sort=random&method=flickr.photos.search&tags=daffodil&tag_mode=all&api_key=0e2b6aaf8a6901c264acb91f151a3350&nojsoncallback=1")!
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { (data, response, err) in
-            // unwrap the json data to the necessary level of
-            // specificity
+            // unwrap the json data to the necessary level
             let data = data!
             let json = try! JSONSerialization.jsonObject(with: data, options: [])
             let theDict = json as! [String: Any]
@@ -61,15 +54,6 @@ class ViewController: UIViewController {
             let detailViewController = segue.destination as! DetailViewController
             let photoCell = sender as! PhotoCell
             detailViewController.photo = photoCell.photo
-        }
-    }
-    
-    // called by ImageService when it has downloaded or tried to download
-    // a new image
-    func updateDownloadProgress(progress: CGFloat) {
-        self.downloadProgressBar.progress = Float(progress)
-        if progress == 1 {
-            self.downloadProgressBar.isHidden = true
         }
     }
 }
